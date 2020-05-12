@@ -1,0 +1,115 @@
+version: '2.1'
+
+services:
+  db1:
+      image: postgres:9.5-alpine
+      restart: always
+      environment:
+        POSTGRES_PASSWORD: '123456'
+        PGDATA: '/var/lib/postgresql/data/pgdata'
+      volumes:
+        - ./data/db1:/var/lib/postgresql/data
+
+  db2:
+      image: postgres:9.5-alpine
+      restart: always
+      environment:
+        POSTGRES_PASSWORD: '123456'
+        PGDATA: '/var/lib/postgresql/data/pgdata'
+      volumes:
+        - ./data/db2:/var/lib/postgresql/data
+
+  db3:
+      image: postgres:9.5-alpine
+      restart: always
+      environment:
+        POSTGRES_PASSWORD: '123456'
+        PGDATA: '/var/lib/postgresql/data/pgdata'
+      volumes:
+        - ./data/db3:/var/lib/postgresql/data
+
+  redis1:
+      image: redis
+      environment:
+        - ALLOW_EMPTY_PASSWORD=yes
+      ports:
+        - 6379:6379
+
+  redis2:
+      image: redis
+      environment:
+        - ALLOW_EMPTY_PASSWORD=yes
+      ports:
+        - 6379:6379
+
+  redis3:
+      image: redis
+      environment:
+        - ALLOW_EMPTY_PASSWORD=yes
+      ports:
+        - 6379:6379
+
+  rabbitmq:
+    image: rabbitmq:3.8-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: SuperSecr3t
+    ports:
+      - 15672:15672
+      - 5672:5672
+    volumes:
+      - ./data/rabbitmq:/var/lib/rabbitmq
+
+  # rabbitmq1:
+  #   #image: rabbitmq:3-management
+  #   build: rabbitmq/
+  #   image: teko-rabbitmq
+  #   hostname: rabbitmq1
+  #   volumes:
+  #     - ./data/rabbitmq-cluster/rabbitmq1:/var/lib/rabbitmq
+  #   ports:
+  #     - 7672:5672
+  #     - 17672:15672
+  #   environment:
+  #     - RABBITMQ_ERLANG_COOKIE=123123
+  #     - RABBITMQ_DEFAULT_USER=admin
+  #     - RABBITMQ_DEFAULT_PASS=SuperSecr3t
+  #
+  # rabbitmq2:
+  #   #image: rabbitmq:3-management
+  #   build: rabbitmq/
+  #   image: teko-rabbitmq
+  #   hostname: rabbitmq2
+  #   volumes:
+  #     - ./data/abbitmq-cluster/rabbitmq2:/var/lib/rabbitmq
+  #   ports:
+  #     - 6672:5672
+  #     - 16672:15672
+  #   environment:
+  #     - RABBITMQ_ERLANG_COOKIE=123123
+  #     - RABBITMQ_DEFAULT_USER=admin
+  #     - RABBITMQ_DEFAULT_PASS=SuperSecr3t
+  #
+  # rabbitmq3:
+  #   #image: rabbitmq:3-management
+  #   build: rabbitmq/
+  #   image: teko-rabbitmq
+  #   hostname: rabbitmq3
+  #   volumes:
+  #     - ./data/rabbitmq-cluster/rabbitmq3:/var/lib/rabbitmq
+  #   ports:
+  #     - 8672:5672
+  #     - 18672:15672
+  #   environment:
+  #     - RABBITMQ_ERLANG_COOKIE=123123
+  #     - RABBITMQ_DEFAULT_USER=admin
+  #     - RABBITMQ_DEFAULT_PASS=SuperSecr3t
+
+  # dev:
+  #   image: golang:latest
+  #   ports:
+  #     - 8080:8080
+  #   volumes:
+  #       - ./config:/opt/loyalty/etc/
+  #       - ./:/app
+    # command: "go run /app/server/main.go api"
