@@ -3,7 +3,7 @@ package main
 import (
 	// "fmt"
 	"github.com/joho/godotenv"
-  "github.com/binhnt-teko/blockchain/app/cmd"
+  "github.com/binhnt-teko/test_blockchain/app/cmd"
   "github.com/urfave/cli/v2"
 	"os"
 	"log"

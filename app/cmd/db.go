@@ -7,7 +7,6 @@ import (
 		// "time"
     "sync"
     "github.com/valyala/fasthttp"
-    "github.com/binhnt-teko/blockchain/api/router"
 )
 
 func dbCommand(ctx *cli.Context) error{

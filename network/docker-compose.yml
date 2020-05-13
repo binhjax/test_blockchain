@@ -1,0 +1,97 @@
+version: '2.1'
+
+services:
+  # Node 1
+  db1:
+      image: postgres:9.5-alpine
+      restart: always
+      environment:
+        POSTGRES_PASSWORD: '123456'
+        PGDATA: '/var/lib/postgresql/data/pgdata'
+      volumes:
+        - ./data/db1:/var/lib/postgresql/data
+      ports:
+        - 15432:5432
+
+  redis1:
+      image: redis
+      environment:
+        - ALLOW_EMPTY_PASSWORD=yes
+      ports:
+        - 16379:6379
+
+  rabbitmq1:
+    image: rabbitmq:3.8-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: SuperSecr3t
+    ports:
+      - 15671:15672
+      - 5671:5672
+    volumes:
+      - ./data/rabbitmq1:/var/lib/rabbitmq
+
+  # Node 2
+  db2:
+      image: postgres:9.5-alpine
+      restart: always
+      environment:
+        POSTGRES_PASSWORD: '123456'
+        PGDATA: '/var/lib/postgresql/data/pgdata'
+      volumes:
+        - ./data/db2:/var/lib/postgresql/data
+      ports:
+        - 25432:5432
+  redis2:
+      image: redis
+      environment:
+        - ALLOW_EMPTY_PASSWORD=yes
+      ports:
+        - 26379:6379
+  rabbitmq2:
+    image: rabbitmq:3.8-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: SuperSecr3t
+    ports:
+      - 15672:15672
+      - 5672:5672
+    volumes:
+      - ./data/rabbitmq1:/var/lib/rabbitmq
+
+  #Node 3
+  db3:
+      image: postgres:9.5-alpine
+      restart: always
+      environment:
+        POSTGRES_PASSWORD: '123456'
+        PGDATA: '/var/lib/postgresql/data/pgdata'
+      volumes:
+        - ./data/db3:/var/lib/postgresql/data
+      ports:
+        - 35432:5432
+  redis3:
+      image: redis
+      environment:
+        - ALLOW_EMPTY_PASSWORD=yes
+      ports:
+        - 36379:6379
+  rabbitmq3:
+    image: rabbitmq:3.8-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: SuperSecr3t
+    ports:
+      - 15673:15672
+      - 5673:5672
+    volumes:
+      - ./data/rabbitmq1:/var/lib/rabbitmq
+
+    # dev:
+    #   image: golang:latest
+    #   ports:
+    #     - 8080:8080
+    #   volumes:
+    #       - ./config:/opt/loyalty/etc/
+    #       - ./:/app
+      # command: "go run /app/server/main.go api"
